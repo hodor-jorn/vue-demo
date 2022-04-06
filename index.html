@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>[卫生健康委]新冠病毒核酸/抗体检测结果查询</title>
+    <meta name="catalog" content="c9254" />
+    <meta name="filetype" content="0" />
+    <meta name="publishedtype" content="1" />
+    <meta name="pagetype" content="2" />
+    <meta name="keywords" content="新冠病毒核酸/抗体检测" />
+    <meta
+      name="description"
+      content="支持查询7天内核酸检测结果和既往血清特异性lgG抗体检测结果"
+    />
+    <link
+      rel="stylesheet"
+      href="https://bmfw.www.gov.cn/mxgbdhsktjcjgcx/source/WAP/css/vant.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://bmfw.www.gov.cn/mxgbdhsktjcjgcx/source/WAP/css/manstatus.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://bmfw.www.gov.cn/mxgbdhsktjcjgcx/source/WAP/css/head.css"
+    />
+  </head>
+
+  <body class="clearFix">
+    <div id="app">
+      <div id="headdiv" class="newHeader">
+        <div class="headfl">
+          <img
+            src="http://ysp.www.gov.cn/013582404bd78ad3c016b8fffefe6a9a/newlogo19ysp.png"
+            @click="goIndex"
+            class="logo"
+          />
+        </div>
+        <span id="yh_btn_favoriteadd" class="collectionLocation collect">
+          <img
+            class="head-icon"
+            src="http://bmfw.www.gov.cn/mxgbdhsktjcjgcx/source/WAP/images/shoucang.png"
+            alt=""
+          />收藏
+        </span>
+      </div>
+      <div class="user-box" v-if="gotoarr[0].flag||gotoarr[1].flag">
+        <div>
+          <p>姓名：<span id="name"></span></p>
+          <p>证件号码：<span id="id"></span></p>
+        </div>
+      </div>
+      <!--核酸检测结果 -->
+      <div v-if="gotoarr[0].flag||gotoarr[1].flag">
+        <div class="heyan-box" v-for="(item,index)  in gotoarr" :key="index">
+          <div v-if="item.flag&&item.data.hsjcjg=='阴性'">
+            <div class="heyan-title">核酸检测结果</div>
+            <div class="heyan-have">
+              <img
+                src="http://bmfw.www.gov.cn/mxgbdhsktjcjgcx/source/WAP/images/nagative.png"
+                alt=""
+              />
+            </div>
+            <div class="heyna-bottom">
+              <p>
+                <span>检测时间：</span>
+                <span id="time"></span>
+              </p>
+              <p>
+                <span>检测机构：</span>
+                <span id="place"></span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 抗体检测结果 -->
+      <div
+        class="heyan-box"
+        v-if="statePersonnel.status1.flag||statePersonnel.status2.flag"
+      >
+        <div v-if="!statePersonnel.status2.data">
+          <div class="heyan-title">抗体检测结果</div>
+          <div class="no-result">暂未查询到数据</div>
+        </div>
+      </div>
+
+      <!-- 底部banner -->
+      <div class="link-banner">
+        <a href="http://bmfw.www.gov.cn/mxxgzbdfyjycxjkzg/index.html"
+          ><img
+            width="100%"
+            style="max-height: 10rem"
+            src="http://bmfw.www.gov.cn/mxgbdhsktjcjgcx/source/WAP/images/bannerlink.png"
+            alt=""
+        /></a>
+      </div>
+
+      <div class="kuihuama">
+        <img
+          src="http://bmfw.www.gov.cn/mxgbdhsktjcjgcx/source/WAP/images/kuihuama.png"
+          alt=""
+        />
+        <p>微信扫码查询</p>
+      </div>
+      <!-- 脚部信息 -->
+      <div class="footer_depart footer-center query_progress">
+        <p>本服务由国家卫生健康委提供</p>
+      </div>
+    </div>
+
+    <style>
+      div,
+      p,
+      span,
+      input,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: SimHei !important;
+      }
+
+      .van-cell {
+        font-size: var(--textPart);
+      }
+    </style>
+    <script>
+      function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split("=");
+          if (pair[0] == variable) {
+            return pair[1];
+          }
+        }
+        return false;
+      }
+      var name = getQueryVariable("name");
+      var id = getQueryVariable("id");
+      var time = getQueryVariable("time");
+      var place = getQueryVariable("place");
+      if (name) {
+        document.getElementById("name").innerText = decodeURIComponent(name);
+      }
+      if (id) {
+        document.getElementById("id").innerText = decodeURIComponent(id);
+      }
+      if (time) {
+        document.getElementById("time").innerText = decodeURIComponent(time);
+      }
+      if (place) {
+        document.getElementById("place").innerText = decodeURIComponent(place);
+      }
+    </script>
+  </body>
+</html>
