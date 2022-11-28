@@ -817,7 +817,7 @@
                     </div>
                     <div class="traffic-box-item_info1">
                       <span>结果:<span class="c1"> 阴性</span></span>
-                      <span class="tip"><div>72小时</div></span>
+                      <span class="tip"><div>48小时</div></span>
                     </div>
                     <div class="icon">
                       <i class="van-badge__wrapper van-icon van-icon-arrow"
@@ -1356,7 +1356,7 @@
     const time =
       getQueryVariable("time") || dayjs().format("YYYY年MM月DD日 HH:mm:ss");
     const date =
-      getQueryVariable("date") || dayjs().subtract(2, "day").format("MM月DD日");
+      getQueryVariable("date") || dayjs().subtract(1, "day").format("MM月DD日");
     document.getElementById("head").innerText = head;
     document.getElementById("type").innerText = type;
     document.getElementById("address").innerText = address;
